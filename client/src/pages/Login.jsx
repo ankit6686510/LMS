@@ -36,8 +36,10 @@ const Login = () => {
     const { name, email, password, confirmPassword } = formData.signup;
     if (!name) newErrors.name = "Name is required!";
     if (!email || !email.includes("@")) newErrors.email = "Invalid email!";
-    if (password.length < 6) newErrors.password = "Password must be at least 6 characters!";
-    if (password !== confirmPassword) newErrors.confirmPassword = "Passwords do not match!";
+    if (password.length < 6)
+      newErrors.password = "Password must be at least 6 characters!";
+    if (password !== confirmPassword)
+      newErrors.confirmPassword = "Passwords do not match!";
     setErrors((prev) => ({ ...prev, signup: newErrors }));
     return Object.keys(newErrors).length === 0;
   };
@@ -54,7 +56,7 @@ const Login = () => {
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
     if (!validateSignup()) return;
-    
+
     setLoading(true);
     const { email, password } = formData.signup;
     try {
@@ -75,7 +77,7 @@ const Login = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     if (!validateLogin()) return;
-    
+
     setLoading(true);
     const { email, password } = formData.login;
     try {
@@ -93,8 +95,20 @@ const Login = () => {
   };
 
   // Button enable/disable check based on form validity
-  const isSignupFormValid = formData.signup.name && formData.signup.email && formData.signup.password && formData.signup.confirmPassword && !errors.signup.name && !errors.signup.email && !errors.signup.password && !errors.signup.confirmPassword;
-  const isLoginFormValid = formData.login.email && formData.login.password && !errors.login.email && !errors.login.password;
+  const isSignupFormValid =
+    formData.signup.name &&
+    formData.signup.email &&
+    formData.signup.password &&
+    formData.signup.confirmPassword &&
+    !errors.signup.name &&
+    !errors.signup.email &&
+    !errors.signup.password &&
+    !errors.signup.confirmPassword;
+  const isLoginFormValid =
+    formData.login.email &&
+    formData.login.password &&
+    !errors.login.email &&
+    !errors.login.password;
 
   return (
     <div className="flex items-center justify-center">
@@ -108,9 +122,7 @@ const Login = () => {
           <Card>
             <CardHeader>
               <CardTitle>Signup</CardTitle>
-              <CardDescription>
-                Make your account here.
-              </CardDescription>
+              <CardDescription>Make your account here.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
               <form onSubmit={handleSignupSubmit}>
@@ -125,7 +137,9 @@ const Login = () => {
                     placeholder="Enter your name"
                     required
                   />
-                  {errors.signup.name && <p className="text-red-500">{errors.signup.name}</p>}
+                  {errors.signup.name && (
+                    <p className="text-red-500">{errors.signup.name}</p>
+                  )}
                 </div>
                 <div className="space-y-1">
                   <Label htmlFor="email">Email</Label>
@@ -138,7 +152,9 @@ const Login = () => {
                     placeholder="Enter your email"
                     required
                   />
-                  {errors.signup.email && <p className="text-red-500">{errors.signup.email}</p>}
+                  {errors.signup.email && (
+                    <p className="text-red-500">{errors.signup.email}</p>
+                  )}
                 </div>
                 <div className="space-y-1">
                   <Label htmlFor="password">Password</Label>
@@ -151,7 +167,9 @@ const Login = () => {
                     placeholder="Enter your password"
                     required
                   />
-                  {errors.signup.password && <p className="text-red-500">{errors.signup.password}</p>}
+                  {errors.signup.password && (
+                    <p className="text-red-500">{errors.signup.password}</p>
+                  )}
                 </div>
                 <div className="space-y-1">
                   <Label htmlFor="confirm-password">Confirm Password</Label>
@@ -165,14 +183,22 @@ const Login = () => {
                     required
                   />
                   {errors.signup.confirmPassword && (
-                    <p className="text-red-500">{errors.signup.confirmPassword}</p>
+                    <p className="text-red-500">
+                      {errors.signup.confirmPassword}
+                    </p>
                   )}
                 </div>
                 {loading && <p>Loading...</p>}
               </form>
             </CardContent>
             <CardFooter>
-              <Button type="submit" onClick={handleSignupSubmit} disabled={!isSignupFormValid}>Signup</Button>
+              <Button
+                type="submit"
+                onClick={handleSignupSubmit}
+                disabled={!isSignupFormValid}
+              >
+                Signup
+              </Button>
               {success && <p className="text-green-500">{success}</p>}
             </CardFooter>
           </Card>
@@ -182,7 +208,9 @@ const Login = () => {
           <Card>
             <CardHeader>
               <CardTitle>Login</CardTitle>
-              <CardDescription>Enter your email and password to log in.</CardDescription>
+              <CardDescription>
+                Enter your email and password to log in.
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
               <form onSubmit={handleLoginSubmit}>
@@ -197,7 +225,9 @@ const Login = () => {
                     placeholder="Enter your email"
                     required
                   />
-                  {errors.login.email && <p className="text-red-500">{errors.login.email}</p>}
+                  {errors.login.email && (
+                    <p className="text-red-500">{errors.login.email}</p>
+                  )}
                 </div>
                 <div className="space-y-1">
                   <Label htmlFor="login-password">Password</Label>
@@ -210,13 +240,21 @@ const Login = () => {
                     placeholder="Enter your password"
                     required
                   />
-                  {errors.login.password && <p className="text-red-500">{errors.login.password}</p>}
+                  {errors.login.password && (
+                    <p className="text-red-500">{errors.login.password}</p>
+                  )}
                 </div>
                 {loading && <p>Loading...</p>}
               </form>
             </CardContent>
             <CardFooter>
-              <Button type="submit" onClick={handleLoginSubmit} disabled={!isLoginFormValid}>Login</Button>
+              <Button
+                type="submit"
+                onClick={handleLoginSubmit}
+                disabled={!isLoginFormValid}
+              >
+                Login
+              </Button>
               {success && <p className="text-green-500">{success}</p>}
             </CardFooter>
           </Card>
